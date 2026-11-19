@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melou — reviews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Prompt:wght@300;400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf5f3;
+      --card: #ffffff;
+      --pill: #f3eae7;
+      --pill-hover: #e5d5d0;
+      --accent: #b89892;
+      --text: #5c4e4b;
+      --muted: #9e8e8b;
+      --line: #efe5e2;
+      --shadow: 0 10px 28px rgba(140, 110, 105, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', 'Prompt', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 18px 14px 96px;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 420px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .top-bar {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+    }
+
+    .top-title {
+      font-weight: 700;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .top-badge {
+      background: var(--pill);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .banner {
+      height: 132px;
+      border-radius: 18px;
+      background: #f8f1ef radial-gradient(#e7d7d3 1px, transparent 1px);
+      background-size: 14px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-family: 'Mali', cursive;
+      font-size: 13px;
+      padding: 12px;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: -28px;
+      padding: 0 8px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      background: var(--pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text);
+      flex-shrink: 0;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 700;
+      padding-top: 24px;
+      overflow-wrap: anywhere;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 16px 0 14px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      background: var(--pill);
+      color: var(--text);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--pill-hover);
+    }
+
+    .note {
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .announce {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      padding: 12px 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .heading {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .star {
+      border: none;
+      background: none;
+      font-size: 24px;
+      color: #dfd3d0;
+      cursor: pointer;
+    }
+
+    .star.on {
+      color: var(--accent);
+    }
+
+    .field {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fcf9f8;
+      border-radius: 16px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    textarea.field {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    .score-box {
+      text-align: center;
+      padding: 12px 16px;
+    }
+
+    .score-num {
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .review-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .reviewer {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--text);
+      overflow-wrap: anywhere;
+    }
+
+    .review-msg {
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .dock {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 28px);
+      max-width: 420px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .dock-item {
+      pointer-events: auto;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .music-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 17px;
+    }
+
+    .badge-btn {
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-bar">
+      <span class="top-title" id="topName">Melou</span>
+      <span class="top-badge" id="topBadge">reviews</span>
+    </div>
+
+    <div class="card">
+      <div class="banner" id="bannerBox">♡ Melou</div>
+      <div class="profile-row">
+        <div class="avatar" id="avatarBox">M</div>
+        <div class="profile-name" id="mainName">Melou</div>
+      </div>
+
+      <div class="stats">
+        <div>
+          <div class="stat-num" id="statReviews">100</div>
+          <div class="stat-label">REVIEWS</div>
+        </div>
+        <div>
+          <div class="stat-num" id="statFollowers">20</div>
+          <div class="stat-label">FOLLOWERS</div>
+        </div>
+      </div>
+
+      <button class="btn" type="button" onclick="alert('ช่องทางติดต่อร้าน Melou')">Follow</button>
+      <div class="note" id="bioNote">thank you for credit ♡</div>
+    </div>
+
+    <div class="card announce" id="announceBox">thank you for every sweet review ♡</div>
+
+    <div class="card">
+      <div class="heading" id="formTitle">review for me</div>
+      <div class="sub">ให้คะแนนดาว:</div>
+      <div class="stars" id="starRow">
+        <button class="star on" type="button" data-val="1">★</button>
+        <button class="star on" type="button" data-val="2">★</button>
+        <button class="star on" type="button" data-val="3">★</button>
+        <button class="star on" type="button" data-val="4">★</button>
+        <button class="star on" type="button" data-val="5">★</button>
+      </div>
+      <input class="field" id="nameInput" type="text" placeholder="ชื่อหรือโค้ดเนม" />
+      <textarea class="field" id="msgInput" placeholder="เขียนรีวิวให้ร้าน Melou..."></textarea>
+      <button class="btn" type="button" onclick="addReview()">ส่งรีวิว</button>
+    </div>
+
+    <div class="card score-box">
+      <div class="sub">ดาวทั้งหมด</div>
+      <div class="score-num" id="scorePercent">96%</div>
+    </div>
+
+    <div class="heading" id="listTitle">All Reviews</div>
+    <div id="reviewList" style="display:flex;flex-direction:column;gap:10px;"></div>
+
+    <footer id="footerText">© 2026 Melou. All rights reserved.</footer>
+  </div>
+
+  <div class="dock">
+    <button class="dock-item music-btn" type="button" onclick="toggleMusicNote(this)" title="เพลง">♪</button>
+    <button class="dock-item badge-btn" type="button" onclick="scrollToTop()">Melou</button>
+  </div>
+
+  <script>
+    const SHOP_CONFIG = {
+      shopName: 'Melou',
+      topBadge: 'reviews',
+      bioNote: 'thank you for credit ♡',
+      announce: 'thank you for every sweet review ♡',
+      reviewsCount: 100,
+      followersCount: 20,
+      scorePercent: '96%',
+      formTitle: 'review for me',
+      listTitle: 'All Reviews',
+      footerText: '© 2026 Melou. All rights reserved.',
+      initialReviews: [
+        { name: 'ลูกค้า Melou', stars: 5, date: '19/11/2026', text: 'งานน่ารักมาก บริการดี ไวใจได้ค่า ♡' }
+      ]
+    };
+
+    let selectedStars = 5;
+    let reviews = [...SHOP_CONFIG.initialReviews];
+
+    function renderPage() {
+      document.title = `${SHOP_CONFIG.shopName} — ${SHOP_CONFIG.topBadge}`;
+      document.getElementById('topName').textContent = SHOP_CONFIG.shopName;
+      document.getElementById('topBadge').textContent = SHOP_CONFIG.topBadge;
+      document.getElementById('bannerBox').textContent = `♡ ${SHOP_CONFIG.shopName}`;
+      document.getElementById('avatarBox').textContent = SHOP_CONFIG.shopName.charAt(0).toUpperCase() || 'M';
+      document.getElementById('mainName').textContent = SHOP_CONFIG.shopName;
+      document.getElementById('bioNote').textContent = SHOP_CONFIG.bioNote;
+      document.getElementById('announceBox').textContent = SHOP_CONFIG.announce;
+      document.getElementById('statReviews').textContent = SHOP_CONFIG.reviewsCount;
+      document.getElementById('statFollowers').textContent = SHOP_CONFIG.followersCount;
+      document.getElementById('scorePercent').textContent = SHOP_CONFIG.scorePercent;
+      document.getElementById('formTitle').textContent = SHOP_CONFIG.formTitle;
+      document.getElementById('listTitle').textContent = SHOP_CONFIG.listTitle;
+      document.getElementById('footerText').textContent = SHOP_CONFIG.footerText;
+      document.querySelector('.badge-btn').textContent = SHOP_CONFIG.shopName;
+
+      const listEl = document.getElementById('reviewList');
+      listEl.innerHTML = reviews.map(item => `
+        <div class="review-card">
+          <div class="review-top">
+            <span class="reviewer">${escapeHtml(item.name)} <span style="color:var(--accent)">${'★'.repeat(item.stars)}</span></span>
+            <span>${escapeHtml(item.date)}</span>
+          </div>
+          <div class="review-msg">${escapeHtml(item.text)}</div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    }
+
+    document.querySelectorAll('#starRow .star').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedStars = Number(btn.dataset.val);
+        document.querySelectorAll('#starRow .star').forEach(s => {
+          s.classList.toggle('on', Number(s.dataset.val) <= selectedStars);
+        });
+      });
+    });
+
+    function addReview() {
+      const nameVal = document.getElementById('nameInput').value.trim() || 'ผู้เยี่ยมชม';
+      const msgVal = document.getElementById('msgInput').value.trim();
+      if (!msgVal) return;
+
+      const now = new Date();
+      const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      reviews.unshift({ name: nameVal, stars: selectedStars, date: dateStr, text: msgVal });
+      SHOP_CONFIG.reviewsCount += 1;
+
+      document.getElementById('nameInput').value = '';
+      document.getElementById('msgInput').value = '';
+      renderPage();
+    }
+
+    function toggleMusicNote(btn) {
+      btn.style.background = btn.style.background ? '' : 'var(--pill)';
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderPage();
+  </script>
+</body>
+</html>
